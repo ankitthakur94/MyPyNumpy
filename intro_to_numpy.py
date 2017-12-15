@@ -6,8 +6,8 @@
 ################################################################
 import numpy as np
 
-# Numpy arrays can be 1-D / 2-D / 3-D
-# in 2-D (most commonly used)  axis 0 -> row and axis 1 -> column
+# Numpy arrays can be 1-D / 2-D / 3-D and maybe more D.
+# in 2-D (most commonly used)  axis 0 V row and axis 1 > column
 
 def print_array_and_shape (arr, array_name):
     ''' Print the array name / the array / shape of the array. '''
@@ -26,6 +26,9 @@ mylist = list (range(1,6))
 print ('mylist : ', mylist)
 np_arr_from_list = np.array(mylist)
 print_array_and_shape( np_arr_from_list, 'np_arr_from_list'  )
+
+# Each element of the list is a row in numpy array.
+# Result is nx1 array (  n : num rows = num elements in list ; 1 : num cols )
 ################################################################
 
 
@@ -34,7 +37,7 @@ print ('----------------------- Create numpy array from 2-/ multiple lists -----
 # Creating 2-dim numpy array by passing 2 / multiple python lists
 # arr_variable = np.array ( <list of lists> )
 # 1-st array is 1st row
-#  2-nd array is 2nd row and so on
+# 2-nd array is 2nd row and so on
 # Means that the lists are stacked vertically to create a 2-d array
 ################################################################
 list1 = list(range(1,6))
@@ -42,6 +45,7 @@ list2 = list(range(11,16))
 np_arr_2d = np.array( [ list1, list2] )
 print_array_and_shape(np_arr_2d, 'np_arr_2d')
 
+# Op array has shape (2x5) ( 2 : num rows :  5 : num cols = num elements in lists)
 ################################################################
 
 
@@ -176,10 +180,11 @@ print ( np_arr_vstacked_casted.dtype )
 print ('---------------------- Indexing -1 ---------------------------')
 ################################################################
 # Indexing and slicing : Available like in python strings
+# In 1-D array ->
 # arr_var[start : end : step_size]  < returns the clipped array
 # start : index is included
 # end : index is not included ( like in range () function in python )
-# default : 0 , -1, 2
+# default values : 0 , -1, 2
 # negative indexing also available :  -1 -> last index
 ################################################################
 
@@ -199,7 +204,7 @@ print (id(np_arr_indexed))              # id2 (different from id1)
 
 
 # Exploring the same in 2-D arrays
-# Syntax : var [<indexing_for_row> , <indexing_for_col> ]
+# Syntax : var [<indexing_for_row a:b:c > , <indexing_for_col a:b:c > ]
 # and indexing for row and column individually works as shown above [start, stop, step] with -ve indexing supported
 
 
@@ -216,6 +221,13 @@ print (' 3rd row and columns 2 ,3,  ', np_arr_2d[2, 1:3 ])
 
 # Get slice of the 3rd row and columns 2 and 4
 print ('3rd row and columns 2, 4 ', np_arr_2d[2,  1:4:2])
+
+
+
+# Indexing in 3-D array.
+# Indexing can be easily extended to any number of dimension array.
+# Indexing in each dimension can be separated by comma.
+# Syntax : var [<indexing1> , <indexing2>,  <indexing3> .. and so on  ]
 ################################################################
 
 
@@ -258,7 +270,7 @@ print ('-------------------- Conditional indexing -----------------------------'
 ################################################################
 ## Conditional Indexing :
 #  arr_var [ condition on arr_var ]
-# The condition should be such an operating which can be executed element-by-element on the array
+# The condition should be such an operation which can be executed element-by-element on the array
 # Ex : >
 ################################################################
 
@@ -320,6 +332,18 @@ for i,j in zip(arr1, arr2):
 ################################################################
 
 
+print ('---------------------- Random codes ---------------------------')
+## Random codes ->
+arr1 = np.arange(1,40,2).reshape(4,5)
+print_array_and_shape(arr1, 'arr1')
+print ( " arr1.dtype : " , arr1.dtype)
+print ( " arr1.dtype.name : " , arr1.dtype.name )
+print ( " arr1.mean() : " , arr1.mean() )
+print ( " arr1.mean(axis=0) : " , arr1.mean(axis=0) )
+print ( " arr1.mean(axis=1) : " , arr1.mean(axis=1) )
+print (arr1[arr1 > 5])
+#print_array_and_shape(arr1, 'arr1')
+
 
 
 ################################################################
@@ -362,7 +386,7 @@ for i,j in zip(arr1, arr2):
 
 # 3.) np.astype ('int32')
 # Changes the datatype.
-# Returns a copy, does not mdify the original array.
+# Returns a copy, does not modify the original array.
 
 
 # 4.) Datatypes in numpy array :
@@ -415,6 +439,11 @@ for i,j in zip(arr1, arr2):
                 # arr.median ()
                 # np.std(arr)
 
+                # Example ( say arr is of (n x m)  shape )
+                    # arr.mean() -> Will return a single value equal to mean of all the values.
+                    # arr.mean(axis=0) -> Will return a 1 x m matrix, each value equal to mean of every col.
+                    # arr.mean(axis=1) -> Will return a 1 x n matrix, each value equal to mean of every row.
+
         # 9.D ) Sorting
                 # arr.sort (axis =0 )
 
@@ -451,7 +480,7 @@ for i,j in zip(arr1, arr2):
             # If its a 2-D array, 1 row as a whole is returned in 1 iteration.
 
         # 14.B) Using enumerate
-            # for index, row in arr :
+            # for index, row in enumerate (arr) :
                  #..
             # Again iterates row wise, giving the index of loop iteration also.
 
